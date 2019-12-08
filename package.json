@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "",
+  "author": "Val, Alex, Darmian, James",
   "entry point": "app.js",
   "license": "MIT",
   "dependencies": {
