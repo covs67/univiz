@@ -57,7 +57,7 @@ window.onload = () => {
     return navigator.geolocation.getCurrentPosition(function (position) {
 
         currentLocation = position.coords
-        // than use it to load from remote APIs some places nearby
+        // then use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {

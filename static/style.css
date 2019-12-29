@@ -81,3 +81,19 @@ body{
 .my-float{
 	margin-top:22px;
 }
+
+#wrapper {
+    width: 100vw;
+    height:100vh;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #wrapper button {
+    text-align:center;
+    height: 20px;
+    width: 100px;
+  }
+  
