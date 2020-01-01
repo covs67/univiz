@@ -1,4 +1,5 @@
-var currentLocation;
+var currentLocation; //Storing the users current location.
+
 
   const loadPlaces = function (coords) {
     
@@ -41,6 +42,7 @@ async function loadPlaceFromAPIs(position) {
             });
         })
     } else if (loadMode ==='server'){
+        //Using the locations in app.js to get all the locations.
         result = await fetch('/locations').then(
            
             res => res.json()
@@ -49,8 +51,9 @@ async function loadPlaceFromAPIs(position) {
     return result
 };
 
-
+//This method will be called in load for the first time when the website loads.
 window.onload = () => {
+    //Getting a-scene tags on the page.
     const scene = document.querySelector('a-scene');
 
     // first get current user location
@@ -59,13 +62,17 @@ window.onload = () => {
         currentLocation = position.coords
         // then use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
-            .then((places) => {
+            .then((places) => { //Then callback for loading the places.
+                //Iterating over places array received.
                 places.forEach((place) => {
+                    //Get the latitude and longitude
                     const latitude = place.location.lat;
                     const longitude = place.location.lng;
 
+                    // Creating the A-link element that will have the augmented reality content.
                     // add place name
                     const text = document.createElement('a-link');
+                    //Setting attributes
                     text.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
                     text.setAttribute('title', place.name+': '+place.desciption);
                     text.setAttribute('scale', '10 10 10');
@@ -73,19 +80,20 @@ window.onload = () => {
                     text.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
-
+                    //Appending the element to html content with marker.
                     scene.appendChild(text);
 
                     // add place description
                     const description = document.createElement('p');
                     description.setAttribute('value',place.name)
-                    scene.appendChild(description);
+                    scene.appendChild(description); //Adding the Paragraph tag for the marker based on name from firebase.
                     // description.style.marginTop = "";
                 });
             })
     },
-        (err) => console.error('Error in retrieving position', err),
+        (err) => console.error('Error in retrieving position', err),  //Error logging.
         {
+            //Setting parameters.
             enableHighAccuracy: true,
             maximumAge: 0,
             timeout: 27000,
